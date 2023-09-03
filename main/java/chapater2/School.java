@@ -27,7 +27,7 @@ public class School {
         wang.teach(huazhen);
 
         zhao.assignScore("Charles", 80.2);
-        zhao.assignScore("Huazhen", 85.9);
+        zhao.assignScore("Huazhen", 99);
 
         wang.assignScore("Charles", 90.3);
         wang.assignScore("Huazhen", 98.3);
@@ -43,7 +43,8 @@ public class School {
 
         wang.teachStudentsInRoom();
         zhao.teachStudentsInRoom();
-
+//add some changes from others, 
+        //you can edit on it.
 
 
     }
