@@ -29,10 +29,6 @@ public class Student {
         return name;
     }
 
-//    public void addCourse(String course) {
-//        this.courses.add(course);
-//    }
-
 
     public void setRoom(Classroom room) {
         this.studyroom.add(room);

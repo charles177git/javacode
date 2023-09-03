@@ -46,15 +46,5 @@ public class School {
 
 
 
-//
-//        charles.addCourse("Chemistry");
-//        huazhen.addCourse("Physics");
-//        charles.addCourse("Physics");
-//        huazhen.addCourse("Chemistry");
-        /*
-        charles.setRoom(chemistryroom);
-        */
-
-
     }
 }
