@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This is Student class,
+ * student can go to different classroom to learn knowledge,
+ * student will get score in different subject.
+ */
 public class Student {
     private int id;
     private String name;
