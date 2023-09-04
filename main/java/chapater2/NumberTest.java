@@ -18,7 +18,6 @@ public class NumberTest {
         short v3char = 'o';
         int v2char = 'T';
         System.out.println("a asc is " + vchar + ", T asc is " + v2char+ ", o asc is " + v3char);
-    System.out.println("Hello World");
 
 
     }
