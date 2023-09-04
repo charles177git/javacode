@@ -43,9 +43,6 @@ public class School {
 
         wang.teachStudentsInRoom();
         zhao.teachStudentsInRoom();
-//add some changes from others, 
-        //you can edit on it.
-
 
     }
 }
