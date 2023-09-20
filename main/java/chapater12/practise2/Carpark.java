@@ -1,26 +1,36 @@
 package chapater12.practise2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Thread.sleep;
 
 /**
- *  Carpark is a class to similar only one space, will enter car queue and leave the car queue.
+ *  Carpark is a class to similar only One space, will enter car queue and leave the car queue.
  */
 public class Carpark {
     //carpark is available = true, if no empty then set flag = false;
     private boolean flag = true;
     private String name;
-
+    public int CARCOUNT = 50;
+    private List<Integer> lists;
     public Carpark(String name) {
         this.name = name;
+        lists = new ArrayList<Integer>();
+        //because thread shard the memory, leave queue and enter quenu access the same list, should every element duplicate.
+        for (int i = 1; i<= CARCOUNT; i++) {
+            lists.add(i);
+            lists.add(i);
+        }
     }
     protected String getCarparkName() {
         return this.name;
     }
 
     //cars enter the carpark position
-    protected synchronized void driveIn(String plate) {
+    protected synchronized void driveIn(int i) {
+        int k = lists.get(i - 1);
+        String plate = generatePlate(k);
         try {
             if (!flag) {
                 wait();
@@ -36,7 +46,9 @@ public class Carpark {
     }
 
     //cars leave  carpark position.
-    protected synchronized void driveOut(String plate) {
+    protected synchronized void driveOut(int i) {
+        int k = lists.get(i-1);
+        String plate = generatePlate(k);
         try {
             if (flag) {
                 wait();
@@ -82,9 +94,8 @@ class WaitingQueue extends Thread {
 
     public void run() {
         String plate;
-        for (int i= 1; i <= 50; i++) {
-            plate = carpark.generatePlate(i);
-            carpark.driveIn(plate);
+        for (int i= 1; i <= this.carpark.CARCOUNT; i++) {
+            carpark.driveIn(i);
         }
     }
 }
@@ -97,12 +108,10 @@ class LeavingQueue extends Thread {
 
     public void run() {
         String plate;
-        for (int j = 1; j<= 50; j++) {
-            plate = this.carpark.generatePlate(j);
-            carpark.driveOut(plate);
+        for (int j = 1; j<= this.carpark.CARCOUNT; j++) {
+            carpark.driveOut(j);
         }
     }
-
 }
 
 class Test {
@@ -120,5 +129,24 @@ class Test {
 
         LeavingQueue leavingQueue = new LeavingQueue(carpark);
         leavingQueue.start();
+        //second carpark.
+        Carpark carparkOne = new Carpark("luxury");
+        System.out.println("Car park name " + carpark.getCarparkName() + " place");
+
+        WaitingQueue waitingQueueOne = new WaitingQueue(carparkOne);
+        waitingQueueOne.start();
+
+        LeavingQueue leavingQueueOne = new LeavingQueue(carparkOne);
+        leavingQueueOne.start();
+        //Third carpark
+        Carpark carparkThird = new Carpark("Royal");
+        System.out.println("Car park name " + carpark.getCarparkName() + " place");
+
+        WaitingQueue waitingQueueThird = new WaitingQueue(carparkThird);
+        waitingQueueThird.start();
+
+        LeavingQueue leavingQueueThird = new LeavingQueue(carparkThird);
+        leavingQueueThird.start();
     }
+
 }
