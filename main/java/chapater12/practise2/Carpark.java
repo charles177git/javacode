@@ -1,7 +1,6 @@
 package chapater12.practise2;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.Thread.sleep;
 
@@ -10,12 +9,13 @@ import static java.lang.Thread.sleep;
  */
 public class Carpark {
     //carpark is available = true, if no empty then set flag = false;
-    private boolean flag = true;
+    private boolean flag;
     private String name;
     public int CARCOUNT = 50;
     private List<Integer> lists;
-    public Carpark(String name) {
+    public Carpark(String name, Boolean carparkstatus) {
         this.name = name;
+        this.flag = carparkstatus;
         lists = new ArrayList<Integer>();
         //because thread shard the memory, leave queue and enter quenu access the same list, should every element duplicate.
         for (int i = 1; i<= CARCOUNT; i++) {
@@ -117,11 +117,51 @@ class LeavingQueue extends Thread {
 class Test {
     public static void main(String[] args) {
         Test test = new Test();
+        //trail and experiment one time only can run one, the similar result.
         test.trail();
+//        test.experiment();
     }
 
+    /**
+     * follow the book requirement define boolean to present carpark.
+     */
     protected void trail() {
-        Carpark carpark = new Carpark("common");
+        Map<String, Boolean> carparknameandstatus = new HashMap<String, Boolean>();
+        //first car park name and status.
+        carparknameandstatus.put("Common", true);
+
+        carparknameandstatus.put("Luxury", true);
+
+        carparknameandstatus.put("Royal", true);
+        Set<String> set;
+        set = new  HashSet<String>();
+        set = carparknameandstatus.keySet();
+        for (String item : set) {
+            Carpark carpark = new Carpark(item, carparknameandstatus.get(item));
+            System.out.println("Car park name " + carpark.getCarparkName() + " place");
+
+            WaitingQueue waitingQueue  = new WaitingQueue(carpark);
+            waitingQueue.start();
+
+            LeavingQueue leavingQueue = new LeavingQueue(carpark);
+            leavingQueue.start();
+
+        }
+
+    }
+
+    protected void experiment() {
+
+        Map<String, Boolean> carparknameandstatus = new HashMap<String, Boolean>();
+        //first car park name and status.
+        carparknameandstatus.put("Common", true);
+
+        carparknameandstatus.put("Luxury", true);
+
+        carparknameandstatus.put("Royal", true);
+
+
+        Carpark carpark = new Carpark("common", carparknameandstatus.get("Common"));
         System.out.println("Car park name " + carpark.getCarparkName() + " place");
 
         WaitingQueue waitingQueue = new WaitingQueue(carpark);
@@ -130,7 +170,7 @@ class Test {
         LeavingQueue leavingQueue = new LeavingQueue(carpark);
         leavingQueue.start();
         //second carpark.
-        Carpark carparkOne = new Carpark("luxury");
+        Carpark carparkOne = new Carpark("Luxury", carparknameandstatus.get("Luxury"));
         System.out.println("Car park name " + carpark.getCarparkName() + " place");
 
         WaitingQueue waitingQueueOne = new WaitingQueue(carparkOne);
@@ -139,7 +179,7 @@ class Test {
         LeavingQueue leavingQueueOne = new LeavingQueue(carparkOne);
         leavingQueueOne.start();
         //Third carpark
-        Carpark carparkThird = new Carpark("Royal");
+        Carpark carparkThird = new Carpark("Royal", carparknameandstatus.get("Royal"));
         System.out.println("Car park name " + carpark.getCarparkName() + " place");
 
         WaitingQueue waitingQueueThird = new WaitingQueue(carparkThird);
@@ -147,6 +187,8 @@ class Test {
 
         LeavingQueue leavingQueueThird = new LeavingQueue(carparkThird);
         leavingQueueThird.start();
+
     }
 
 }
+
