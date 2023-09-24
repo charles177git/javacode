@@ -68,20 +68,20 @@ class CarQuitQueue extends Thread {
         try {
             while (true) {
                 System.out.println("After cars finish fill petrol or fill electricity, it is ready to quite the queue");
-                wait(200);
+                sleep(200);
                 String carno = carpark[0].take();
                 System.out.println("car " + carno + "is driving away");
 
 //            while (true) {
                 System.out.println("After cars finish fill petrol or fill electricity, it is ready to quite the queue");
-                wait(200);
+                sleep(200);
                 String carno1 = carpark[1].take();
                 System.out.println("car " + carno1 + "is driving away");
 //            }
 
 //            while (true) {
                 System.out.println("After cars finish fill petrol or fill electricity, it is ready to quite the queue");
-                wait(200);
+                sleep(200);
                 String carno2 = carpark[2].take();
                 System.out.println("car " + carno2 + "is driving away");
 //            }
