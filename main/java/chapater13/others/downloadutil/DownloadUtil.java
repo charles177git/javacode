@@ -99,7 +99,6 @@ class DownloadThread extends Thread {
         try {
             URL url = new URL(path);
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-            System.out.println("reading stream size " + httpURLConnection.getContentLength());
             httpURLConnection.setConnectTimeout(5000);
             httpURLConnection.setRequestMethod("GET");
             httpURLConnection.setRequestProperty(
@@ -116,7 +115,8 @@ class DownloadThread extends Thread {
                             + "application/vnd.ms-powerpoint, application/msword, */*");
             httpURLConnection.setRequestProperty("Accept-Language", "zh-CN");
             httpURLConnection.setRequestProperty("Charset", "UTF-8");
-            httpURLConnection.setRequestProperty("Connection", "Keep-Alive");
+//            httpURLConnection.setRequestProperty("Connection", "Keep-Alive");
+            System.out.println("reading stream size " + httpURLConnection.getContentLength());
 //            httpURLConnection.setRequestProperty("https.protocols", "TLSv1.2");
             InputStream inStream = httpURLConnection.getInputStream();
             //both skip startpoint position
