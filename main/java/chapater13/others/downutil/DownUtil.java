@@ -1,8 +1,6 @@
 package chapater13.others.downutil;
 
 
-import chapater13.others.downloadutil.DownloadUtil;
-
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.*;
